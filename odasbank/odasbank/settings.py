@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,18 +26,23 @@ SECRET_KEY = 'django-insecure-+7r8$_=nyq(kzj%7$heh5_2*vqi$2ztm&z=wiz7^_^zsnaovz7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'bankapp.apps.BankappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'two_factor',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'odasbank.urls'
@@ -121,3 +128,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'two_factor:login'
+LOGIN_REDIRECT_URL = '' # może /
+LOGOUT_REDIRECT_URL = '/'
+TWO_FACTOR_TOTP_DIGITS = 6
+TWO_FACTOR_LOGIN_TIMEOUT = 300
+
+FIELD_ENCRYPTION_KEY = b'2Kh1nCYX5XTB1vj6RLC3g_IZzFoJHazrm1kVbBcqfNc='
+
+AUTH_USER_MODEL = 'bankapp.User'
