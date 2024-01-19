@@ -11,6 +11,9 @@ class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True)
     account_number = models.CharField(max_length=6, unique=True, default=get_random_string(length=6, allowed_chars=string.digits))
     
+    def connect_sensitive_data(self, credit_card_number, id_number):
+        SensitiveData.objects.create(user=self, credit_card_number=credit_card_number, id_number=id_number)
+    
     
 class SensitiveData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView, TemplateView
 from django.utils.crypto import get_random_string
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views import View
 import string
 from .forms import *
 from .models import *
@@ -13,25 +16,24 @@ def registration_view(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Nie zapisuj jeszcze użytkownika
+            user = form.save(commit=False)
             user.balance = 1000
             user.account_number = get_random_string(length=6, allowed_chars=string.digits)
             
             try:
-                user.save()  # Zapisz użytkownika
+                user.save()
+                user.connect_sensitive_data(form.cleaned_data['credit_card_number'], form.cleaned_data['id_number'])
             except Exception as e:
-                # Obsłuż błąd zapisu użytkownika (np. wyjątek walidacji)
-                # Możesz tutaj wyświetlić komunikat błędu lub logować go
                 print(f"Błąd zapisu użytkownika: {e}")
                 return render(request, 'register.html', {'form': form})
             
-            # Pomyślnie zapisany użytkownik, kontynuuj zalogowanie
             login(request, user)
             return redirect('dashboard')
     else:
         form = RegistrationForm()
         
     return render(request, 'register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -118,13 +120,17 @@ def logout_view(request):
 def sensitive_data_view(request):
     user = request.user
 
-    # Sprawdź, czy użytkownik ma powiązane dane wrażliwe
     try:
-        sensitive_data = user.sensitivedata
-    except SensitiveData.DoesNotExist:
+        sensitive_data = SensitiveData.objects.get(user=user)
+    except:
         sensitive_data = None
 
     return render(request, 'sensitive_data.html', {'user': user, 'sensitive_data': sensitive_data})
+
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'change_password.html'
+    success_url = reverse_lazy('password_change_done')
 
 class HomeView(TemplateView):
     template_name = 'home.html'
