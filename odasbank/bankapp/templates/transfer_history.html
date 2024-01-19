@@ -1,0 +1,49 @@
+{% extends 'base_logged_in.html' %}
+
+{% block content %}
+  <h2>Transfer History</h2>
+
+  <h3>Incoming Transfers</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Account Number</th>
+        <th>Amount</th>
+        <th>Sender Name</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transfer in incoming_transfers %}
+        <tr>
+          <td>{{ transfer.sender.account_number }}</td>
+          <td>{{ transfer.amount }}</td>
+          <td>{{ transfer.sender.username }}</td>
+          <td>{{ transfer.title }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Outgoing Transfers</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Account Number</th>
+        <th>Amount</th>
+        <th>Recipient Name</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transfer in outgoing_transfers %}
+        <tr>
+          <td>{{ transfer.reciever.account_number }}</td>
+          <td>{{ transfer.amount }}</td>
+          <td>{{ transfer.reciever_name }}</td>
+          <td>{{ transfer.title }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

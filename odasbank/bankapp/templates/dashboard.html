@@ -2,10 +2,11 @@
 
 {% block content %}
     <h1>Welcome, {{ user.username }}!</h1>
-    <p>You are logged in as: {{ user.username }}</p>
-    
+    <p>Your account balance: {{ account_balance }}</p>
+    <p>Your account number: {{ account_number }}</p>
     <ul>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-        <li><a href="{% url 'make_transfer' %}">Make a Transfer</a></li>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean interdum ligula non mauris faucibus facilisis. Aenean lacus eros, placerat quis ultrices at, elementum vel velit. Fusce faucibus, ante sit amet vulputate tempor, sem massa pharetra enim, a volutpat velit nisi vel erat. Maecenas sed lacus enim. Cras massa leo, egestas at gravida id, pretium nec dolor. Donec non erat eu massa congue iaculis sed ac mi. Quisque ligula nunc, pulvinar ut nisl tempor, iaculis congue sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin pellentesque lacus dui, quis elementum enim commodo et. Praesent justo tortor, faucibus et tortor ac, vehicula finibus magna. Sed rhoncus rutrum sollicitudin. Nulla at sapien vitae massa dignissim imperdiet. Morbi dignissim sodales ex, in ultrices elit ultricies et. Aenean rutrum lobortis sagittis.
+        <br><br>
+        Duis arcu elit, semper placerat placerat nec, tempus a augue. Donec euismod mollis tellus sit amet aliquet. Vivamus gravida risus ut libero accumsan, luctus bibendum ex condimentum. In pellentesque faucibus dignissim. Morbi feugiat quam sit amet urna aliquam ornare. Donec condimentum diam in tristique posuere. Aliquam vulputate justo felis. Fusce et metus eu arcu consectetur pharetra sed vitae lorem. Nulla facilisi. Sed euismod, nisl eget aliquam aliquam, nunc nisl aliquam nunc, eget aliquam nisl nisl nec nunc. Nulla
     </ul>
 {% endblock %}

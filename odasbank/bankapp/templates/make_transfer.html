@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_logged_in.html' %}
 
 {% block content %}
   <h2>New Transfer</h2>
@@ -8,6 +8,10 @@
     {{ form.reciever_account_number.label_tag }}
     {{ form.reciever_account_number }}
     {{ form.reciever_account_number.errors }}
+
+    {{ form.reciever_name.label_tag }}
+    {{ form.reciever_name }}
+    {{ form.reciever_name.errors }}
     
     {{ form.amount.label_tag }}
     {{ form.amount }}

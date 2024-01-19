@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import AbstractUser, Group, Permission
 import random, string
 from encrypted_model_fields.fields import EncryptedCharField
@@ -20,6 +20,7 @@ class SensitiveData(models.Model):
 class Transfer(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reciever')
+    reciever_name = models.CharField(max_length=100)
     amount = models.IntegerField(validators=[MinValueValidator(1)])
     title = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now_add=True)
@@ -32,7 +33,7 @@ class Transfer(models.Model):
         
     def execute(self):
         if self.validate():
-            with models.transaction.atomic():
+            with transaction.atomic():
                 self.sender.balance -= self.amount
                 self.sender.save()
                 self.reciever.refresh_from_db()

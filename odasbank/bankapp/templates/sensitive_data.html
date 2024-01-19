@@ -1,0 +1,17 @@
+{% extends 'base_logged_in.html' %}
+
+{% block content %}
+  <h2>Your Data</h2>
+
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Account Number: {{ user.account_number }}</p>
+
+  {% if sensitive_data %}
+    <h2>Your Sensitive Data</h2>
+    <p>Credit Card Number: {{ sensitive_data.credit_card_number }}</p>
+    <p>ID Number: {{ sensitive_data.id_number }}</p>
+  {% else %}
+    <p>No sensitive data available.</p>
+  {% endif %}
+{% endblock %}

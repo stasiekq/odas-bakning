@@ -6,8 +6,22 @@
     <title>{% block title %}Banking App{% endblock %}</title>
 </head>
 <body>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+    {% endif %}
     <div id="header">
         <h1>Banking App</h1>
+        <p>You are logged in as: {{ user.username }}</p>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <br>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'transfer_history' %}">Transfer History</a></li>
+        <li><a href="{% url 'make_transfer' %}">Make a Transfer</a></li>
+        <li><a href="{% url 'sensitive_data' %}">View your Sensitive Data</a></li>
     </div>
     <div id="content">
         {% block content %}{% endblock %}
