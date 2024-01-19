@@ -8,13 +8,14 @@ from django.core.validators import MinValueValidator
 class User(AbstractUser):
     balance = models.IntegerField(default=1000)
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=30, unique=True)
     account_number = models.CharField(max_length=6, unique=True, default=get_random_string(length=6, allowed_chars=string.digits))
     
     
 class SensitiveData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    credit_card_number = EncryptedCharField(unique=True, max_length=16, default=get_random_string(length=16, allowed_chars=string.digits))
-    id_number = EncryptedCharField(unique=True, max_length=10, default=get_random_string(length=10, allowed_chars=string.digits))
+    credit_card_number = EncryptedCharField(unique=True, max_length=16)
+    id_number = EncryptedCharField(unique=True, max_length=10)
     
 class Transfer(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')

@@ -1,0 +1,30 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Moja aplikacja bankowa{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Moja aplikacja bankowa</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Strona główna</a></li>
+                <li><a href="{% url 'register' %}">Rejestracja</a></li>
+                <a href="{% url 'login' %}">Login</a>
+                <!-- Dodaj inne linki nawigacyjne według potrzeb -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Stopka strony -->
+    </footer>
+</body>
+</html>
