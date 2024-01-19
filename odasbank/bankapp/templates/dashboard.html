@@ -1,0 +1,11 @@
+{% extends 'base_logged_in.html' %}
+
+{% block content %}
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>You are logged in as: {{ user.username }}</p>
+    
+    <ul>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <li><a href="{% url 'make_transfer' %}">Make a Transfer</a></li>
+    </ul>
+{% endblock %}

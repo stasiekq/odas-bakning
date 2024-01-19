@@ -11,7 +11,7 @@ class RegistrationForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'credit_card_number', 'id_number']
+        fields = ['username', 'email', 'credit_card_number', 'id_number', 'password1', 'password2']
         
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -31,3 +31,8 @@ class RegistrationForm(UserCreationForm):
     
 class LoginForm(AuthenticationForm):
     pass
+
+class TransferForm(forms.Form):
+    reciever_account_number = forms.CharField(label='Reciever account number', max_length=6)
+    amount = forms.IntegerField(label='Amount', min_value=1)
+    title = forms.CharField(label='Title', max_length=100)

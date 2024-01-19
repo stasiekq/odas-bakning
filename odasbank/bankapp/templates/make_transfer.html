@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>New Transfer</h2>
+  <form method="post" action="{% url 'make_transfer' %}">
+    {% csrf_token %}
+    
+    {{ form.reciever_account_number.label_tag }}
+    {{ form.reciever_account_number }}
+    {{ form.reciever_account_number.errors }}
+    
+    {{ form.amount.label_tag }}
+    {{ form.amount }}
+    {{ form.amount.errors }}
+    
+    {{ form.title.label_tag }}
+    {{ form.title }}
+    {{ form.title.errors }}
+    
+    <button type="submit">Make Transfer</button>
+  </form>
+  <a href="{% url 'dashboard' %}">Cancel</a>
+{% endblock %}

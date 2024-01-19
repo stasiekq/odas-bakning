@@ -130,14 +130,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'two_factor:login'
-LOGIN_REDIRECT_URL = '' # może /
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'dashboard' # może /
+LOGOUT_REDIRECT_URL = 'home'
 TWO_FACTOR_TOTP_DIGITS = 6
 TWO_FACTOR_LOGIN_TIMEOUT = 300
 
 FIELD_ENCRYPTION_KEY = b'2Kh1nCYX5XTB1vj6RLC3g_IZzFoJHazrm1kVbBcqfNc='
 
-LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 AUTH_USER_MODEL = 'bankapp.User'

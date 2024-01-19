@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Moja aplikacja bankowa{% endblock %}</title>
+    <title>{% block title %}My Banking App{% endblock %}</title>
 </head>
 <body>
     <header>
-        <h1>Moja aplikacja bankowa</h1>
+        <h1>My banking App</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Strona główna</a></li>
-                <li><a href="{% url 'register' %}">Rejestracja</a></li>
-                <a href="{% url 'login' %}">Login</a>
+                <li><a href="{% url 'home' %}">Home Page</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
                 <!-- Dodaj inne linki nawigacyjne według potrzeb -->
             </ul>
         </nav>
