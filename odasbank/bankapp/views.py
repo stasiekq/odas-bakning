@@ -13,6 +13,9 @@ from .models import *
 
 
 def registration_view(request):
+    if request.user.is_authenticated:
+            return redirect('dashboard')
+    
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -35,7 +38,11 @@ def registration_view(request):
     return render(request, 'register.html', {'form': form})
 
 
+
 def login_view(request):
+    if request.user.is_authenticated:
+            return redirect('dashboard')
+    
     if request.method == 'POST':
         form = LoginForm(request, request.POST)
         if form.is_valid():
@@ -47,6 +54,7 @@ def login_view(request):
         form = LoginForm()
         
     return render(request, 'login.html', {'form': form})
+
 
 @login_required
 def dashboard_view(request):
@@ -107,14 +115,14 @@ def make_transfer_confirmation_view(request):
 @login_required
 def transfer_history_view(request):
     user = request.user
-    incoming_transfers = Transfer.objects.filter(reciever=user)
-    outgoing_transfers = Transfer.objects.filter(sender=user)
+    incoming_transfers = Transfer.objects.filter(reciever=user).order_by('-date')
+    outgoing_transfers = Transfer.objects.filter(sender=user).order_by('-date')
     
     return render(request, 'transfer_history.html', {'incoming_transfers': incoming_transfers, 'outgoing_transfers': outgoing_transfers})
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return render(request, 'logout.html')
 
 @login_required
 def sensitive_data_view(request):
@@ -131,7 +139,21 @@ class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
     template_name = 'change_password.html'
     success_url = reverse_lazy('password_change_done')
+    
+class AutomaticLogoutInfoView(View):
+    template_name = 'automatic_logout_info.html'
+    
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def dispatch(self, request, *args, **kwargs):
+        logout(request)
+        return render(request, self.template_name)
 
 class HomeView(TemplateView):
     template_name = 'home.html'
     
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+        return super().dispatch(request, *args, **kwargs)

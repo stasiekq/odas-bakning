@@ -15,4 +15,5 @@ urlpatterns = [
     path('sensitive_data/', sensitive_data_view, name='sensitive_data'),
     path('change_password/', CustomPasswordChangeView.as_view(), name='change_password'),
     path('password_change_done/', TemplateView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+    path('automatic_logout_info/', AutomaticLogoutInfoView.as_view(), name='automatic_logout_info'),
 ]

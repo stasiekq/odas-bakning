@@ -28,4 +28,19 @@
         {% block content %}{% endblock %}
     </div>
 </body>
+<script>
+  let inactivityTimeout;
+  
+  function resetInactivityTimeout() {
+      clearTimeout(inactivityTimeout);
+      inactivityTimeout = setTimeout(logoutUser, 300000);
+  }
+  
+  function logoutUser() {
+      window.location.href = "{% url 'automatic_logout_info' %}";  // Zmień na odpowiednią ścieżkę URL dla wylogowania
+  }
+  
+  document.addEventListener("mousemove", resetInactivityTimeout);
+  document.addEventListener("keydown", resetInactivityTimeout);
+  </script>
 </html>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h1>Automatic Logout Information</h1>
+        <p>You have been automatically logged out due to inactivity.</p>
+        <p>Please <a href="{% url 'login' %}">log in</a> again to continue.</p>
+    </div>
+{% endblock %}
