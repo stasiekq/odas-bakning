@@ -7,10 +7,18 @@ from django.utils.crypto import get_random_string
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
+from functools import wraps
 import string
 from .forms import *
 from .models import *
 
+def otp_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_verified():
+            return redirect('/account/login')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 def registration_view(request):
     if request.user.is_authenticated:
@@ -55,8 +63,7 @@ def login_view(request):
         
     return render(request, 'login.html', {'form': form})
 
-
-@login_required
+@otp_required
 def dashboard_view(request):
     user = request.user
     account_balance = user.balance
