@@ -76,7 +76,7 @@ def dashboard_view(request):
     
     return render(request, 'dashboard.html', context)
 
-@login_required
+@otp_required
 def make_transfer_view(request):
     if request.method == 'POST':
         form = TransferForm(request.POST)
@@ -115,11 +115,11 @@ def make_transfer_view(request):
         
     return render(request, 'make_transfer.html', {'form': form})
             
-@login_required
+@otp_required
 def make_transfer_confirmation_view(request):
     return render(request, 'make_transfer_confirmation.html')
 
-@login_required
+@otp_required
 def transfer_history_view(request):
     user = request.user
     incoming_transfers = Transfer.objects.filter(reciever=user).order_by('-date')
@@ -131,7 +131,7 @@ def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
 
-@login_required
+@otp_required
 def sensitive_data_view(request):
     user = request.user
 

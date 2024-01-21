@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Banking App{% endblock %}</title>
+    <title>{% block title %}ODAS Bank{% endblock %}</title>
 </head>
 <body>
     {% if messages %}
@@ -15,7 +15,7 @@
     {% endif %}
     <div id="header">
         <h1>Banking App</h1>
-        <p>You are logged in as: {{ user.username }}</p>
+        <p>You are logged in as: <u>{{ user.username }}</u></p>
         <li><a href="{% url 'logout' %}">Logout</a></li>
         <br>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -37,7 +37,7 @@
   }
   
   function logoutUser() {
-      window.location.href = "{% url 'automatic_logout_info' %}";  // Zmień na odpowiednią ścieżkę URL dla wylogowania
+      window.location.href = "{% url 'automatic_logout_info' %}";
   }
   
   document.addEventListener("mousemove", resetInactivityTimeout);

@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Banking App{% endblock %}</title>
+    <title>{% block title %}ODAS Bank{% endblock %}</title>
 </head>
 <body>
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
     <header>
-        <h1>My banking App</h1>
+        <h1>ODAS Bank</h1>
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home Page</a></li>
