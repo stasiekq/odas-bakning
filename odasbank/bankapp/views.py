@@ -47,21 +47,6 @@ def registration_view(request):
 
 
 
-def login_view(request):
-    if request.user.is_authenticated:
-            return redirect('dashboard')
-    
-    if request.method == 'POST':
-        form = LoginForm(request, request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, 'Zalogowano pomyślnie')
-            return redirect('dashboard')
-    else:
-        form = LoginForm()
-        
-    return render(request, 'login.html', {'form': form})
 
 @otp_required
 def dashboard_view(request):
