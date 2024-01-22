@@ -11,4 +11,4 @@ Make sure you are in `odasbank` directory
 
 In terminal write `docker-compose up --build`
 
-The app will install and launch at localhost. Going to http://localhost will redirect you to https://localhost
+The app will install and launch at localhost. Visiting http://localhost will redirect you to https://localhost
