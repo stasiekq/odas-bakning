@@ -15,8 +15,10 @@ from .models import *
 def otp_required(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        if not request.user.is_verified():
+        if not request.user.is_authenticated:
             return redirect('/account/login')
+        if not request.user.is_verified():
+            return redirect('/account/two_factor/setup')
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
@@ -34,12 +36,13 @@ def registration_view(request):
             try:
                 user.save()
                 user.connect_sensitive_data(form.cleaned_data['credit_card_number'], form.cleaned_data['id_number'])
+                
             except Exception as e:
                 print(f"Błąd zapisu użytkownika: {e}")
                 return render(request, 'register.html', {'form': form})
             
-            login(request, user)
-            return redirect('dashboard')
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/account/two_factor/setup')
     else:
         form = RegistrationForm()
         

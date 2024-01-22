@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+7r8$_=nyq(kzj%7$heh5_2*vqi$2ztm&z=wiz7^_^zsnaovz7'
+SECRET_KEY = 'xs=pj76oo&u0&j#p)oy@39$t0@&&rpj!)xinf%9-1)ty@tojoz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'bankapp.middleware.AdminMiddleware',
     'django_otp.middleware.OTPMiddleware',
     'axes.middleware.AxesMiddleware',
 ]
@@ -157,3 +158,4 @@ AXES_LOCKOUT_TEMPLATE = 'lockout.html'
 AXES_LOCKOUT_URL = '/locked-out/'
 
 CSRF_TRUSTED_ORIGINS = ['https://localhost']
+CSRF_COOKIE_SECURE = True
